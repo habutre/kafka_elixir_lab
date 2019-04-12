@@ -9,7 +9,7 @@ defmodule KafkaElixirLab.Application do
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: KafkaElixirLab.Worker.start_link(arg)
-      # {KafkaElixirLab.Worker, arg}
+      KafkaElixirLab.AttackProducer
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
