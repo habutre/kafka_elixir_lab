@@ -17,6 +17,9 @@ defmodule KafkaElixirLab.AttackProducer do
   def handle_info(:ok, state) do
     # publish kafka message here
     Logger.info "TODO: publish a shot to Kafka"
+    random_number = :rand.uniform(10)
+    msg = "Rdn Num: " <> Integer.to_string(random_number)
+    KafkaEx.produce("elixir-pub", 0, msg)
     schedule_shot(state)
     
     {:noreply, state}
