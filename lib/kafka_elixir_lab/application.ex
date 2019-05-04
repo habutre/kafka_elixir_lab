@@ -6,10 +6,26 @@ defmodule KafkaElixirLab.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
+
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: KafkaElixirLab.Worker.start_link(arg)
-      KafkaElixirLab.AttackProducer
+      KafkaElixirLab.AttackProducer,
+      supervisor(
+        KafkaEx.ConsumerGroup,
+        [
+          KafkaElixirLab.ScalaPubConsumer,
+          "elixir-lab-consumer",
+          ["scala-pub"],
+          [
+            commit_interval: 5000,
+            commit_threshold: 100,
+            auto_offset_reset: :earliest,
+            heartbeat_interval: 1_000
+          ]
+        ]
+      )
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
