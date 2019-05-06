@@ -1,5 +1,6 @@
 defmodule KafkaElixirLab.AttackProducer do
   use GenServer
+  alias KafkaEx.Protocol.Produce.{Message, Request}
   require Logger
 
   def start_link(args \\ %{}) do
@@ -15,11 +16,12 @@ defmodule KafkaElixirLab.AttackProducer do
   # -- Server Callbacks
 
   def handle_info(:ok, state) do
-    # publish kafka message here
-    Logger.info("TODO: publish a shot to Kafka")
-    random_number = :rand.uniform(10)
-    msg = "Rdn Num: " <> Integer.to_string(random_number)
-    KafkaEx.produce("elixir-pub", 0, msg)
+    attack = Integer.to_string(:rand.uniform(10))
+    msg = %Message{key: "elixir-pub", value: attack}
+    request = %Request{topic: "attacks", partition: 0, required_acks: 1, messages: [attack]}
+
+    KafkaEx.produce(request)
+    Logger.info("Published a shot with power " <> attack <> " to attacks topic")
     schedule_shot(state)
 
     {:noreply, state}
