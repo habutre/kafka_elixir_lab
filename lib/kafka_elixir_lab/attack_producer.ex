@@ -18,7 +18,7 @@ defmodule KafkaElixirLab.AttackProducer do
   def handle_info(:ok, state) do
     attack = Integer.to_string(:rand.uniform(10))
     msg = %Message{key: "elixir-pub", value: attack}
-    request = %Request{topic: "attacks", partition: 0, required_acks: 1, messages: [attack]}
+    request = %Request{topic: "attacks", partition: 0, required_acks: 1, messages: [msg]}
 
     KafkaEx.produce(request)
     Logger.info("Published a shot with power " <> attack <> " to attacks topic")
