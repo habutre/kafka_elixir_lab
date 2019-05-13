@@ -16,12 +16,13 @@ defmodule KafkaElixirLab.Application do
         KafkaEx.ConsumerGroup,
         [
           KafkaElixirLab.ScalaPubConsumer,
-          "elixir-lab-consumer",
-          ["scala-pub"],
+          "kafka-lab-elixir-consumer",
+          ["attacks"],
           [
             commit_interval: 5000,
             commit_threshold: 100,
-            auto_offset_reset: :earliest,
+            enable_auto_commit: true,
+            auto_offset_reset: :latest,
             heartbeat_interval: 1_000
           ]
         ]
