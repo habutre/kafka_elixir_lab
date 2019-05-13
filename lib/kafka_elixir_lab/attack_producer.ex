@@ -27,7 +27,7 @@ defmodule KafkaElixirLab.AttackProducer do
     {:noreply, state}
   end
 
-  defp schedule_shot(state) do
+  defp schedule_shot(_state) do
     # in 200ms
     Process.send_after(self(), :ok, 200)
   end
