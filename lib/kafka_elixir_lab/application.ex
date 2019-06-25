@@ -15,7 +15,7 @@ defmodule KafkaElixirLab.Application do
       supervisor(
         KafkaEx.ConsumerGroup,
         [
-          KafkaElixirLab.ScalaPubConsumer,
+          KafkaElixirLab.AttackConsumer,
           "kafka-lab-elixir-consumer",
           ["attacks"],
           [
