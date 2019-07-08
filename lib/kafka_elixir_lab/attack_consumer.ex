@@ -8,11 +8,6 @@ defmodule KafkaElixirLab.AttackConsumer do
   def handle_message_set(message_set, state) do
     for message <- message_set do
       confirm_message_ack(message)
-      # if message.key == "scala-pub" do
-      #  Logger.debug(fn -> "message: " <> inspect(message) end)
-      # else
-      #  Logger.debug("I am not interested on my own messages:" <> inspect(message))
-      # end
     end
 
     {:async_commit, state}
