@@ -30,5 +30,13 @@ use Mix.Config
 #     import_config "#{Mix.env()}.exs"
 #
 config :kafka_ex,
-  brokers: [{"kafka", 9092}],
-  use_ssl: false
+  brokers: [
+    {"localhost", 19092},
+    {"localhost", 29092},
+    {"localhost", 39092}
+  ],
+  use_ssl: true,
+  ssl_options: [
+    cacertfile: File.cwd!() <> "/dev/secrets/consumer-ca1-signed.crt"
+  ],
+  kafka_version: "kayrock"
